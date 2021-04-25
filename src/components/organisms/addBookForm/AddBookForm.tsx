@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
@@ -30,40 +30,18 @@ import Button from '../../atoms/button/Button';
 const AddBookForm = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, errors, reset } = useForm<FormValues>();
-  const [numberValues, setNumberValues] = useState({ bookPrice: 1, bookStockAmount: 0 });
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNumberValues({
-      ...numberValues,
-      [e.target.name]: parseFloat(e.target.value),
-    });
-  };
-
-  const setBookImage = (bookData: FormValues) => {
-    bookData.bookImage.length
-      ? (bookData.bookImage = bookData.bookImage[0].name)
-      : (bookData.bookImage = 'default-img.png');
-  };
-
-  const setBookPrice = (bookData: FormValues) => {
-    bookData.bookPrice = numberValues.bookPrice;
-    bookData.bookStockAmount = numberValues.bookStockAmount;
-  };
-
-  const setBookId = (bookData: FormValues) => {
-    bookData.bookId = uuidv4();
-  };
-
-  const setBookQuantity = (bookData: FormValues) => {
-    bookData.quantity = 1;
-  };
 
   const onSubmit = (data: FormValues) => {
-    setBookImage(data);
-    setBookId(data);
-    setBookPrice(data);
-    setBookQuantity(data);
-    dispatch(addBook(data));
+    const book = {
+      ...data,
+      bookId: uuidv4(),
+      quantity: 1,
+      bookImage: data.bookImage.length ? data.bookImage[0].name : 'default-img.png',
+      bookPrice: +data.bookPrice,
+      bookStockAmount: +data.bookStockAmount,
+    };
+
+    dispatch(addBook(book));
     reset();
   };
 
@@ -122,7 +100,6 @@ const AddBookForm = () => {
             name="bookPrice"
             type="number"
             placeholder="Book Price"
-            onChange={handleInputChange}
             ref={register({ required: true })}
           />
           {errors.bookPrice && <StyledErrorSpan>This field is required</StyledErrorSpan>}
@@ -135,7 +112,6 @@ const AddBookForm = () => {
             name="bookStockAmount"
             type="number"
             placeholder="stock amount"
-            onChange={handleInputChange}
             ref={register({ required: true })}
           />
           {errors.bookPrice && <StyledErrorSpan>This field is required</StyledErrorSpan>}
