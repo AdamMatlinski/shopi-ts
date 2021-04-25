@@ -3,9 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { BookListWrapper } from './BookList.styles';
 import { selectBooks } from './bookListSlice';
-import { addToCartCounter } from '../../molecules/cartIcon/cartIconSlice';
 import { addToCartList } from '../../templates/cartView/cartViewSlice';
-import { addProductPrice } from '../../molecules/orderSummary/orderSummarySlice';
 import BookItem from '../../molecules/bookItem/BookItem';
 import EmptyListInfo from '../../atoms/emptyListInfo/EmptyListInfo';
 import SearchBar from '../../molecules/searchBar/SearchBar';
@@ -49,9 +47,7 @@ const BookList = () => {
                   genre={bookGenre}
                   price={bookPrice}
                   bookStockAmount={bookStockAmount}
-                  addToCartCounter={addToCartCounter}
                   addToCartList={addToCartList}
-                  addProductPrice={addProductPrice}
                   quantity={quantity}
                 />
               ),

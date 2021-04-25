@@ -2,8 +2,6 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectCartBookList, removeBookFromCart } from './cartViewSlice';
-import { removeFromCartCounter } from '../../molecules/cartIcon/cartIconSlice';
-import { subtractProductPrice } from '../../molecules/orderSummary/orderSummarySlice';
 import OrderSummary from '../../molecules/orderSummary/OrderSummary';
 import {
   StyledBookList,
@@ -35,10 +33,8 @@ const CartView = () => {
   const cartBookList = useSelector(selectCartBookList);
   const dispatch = useDispatch();
 
-  const removeBook = ({ id, price, quantity }: RemoveBookValues) => {
+  const removeBook = ({ id, quantity }: RemoveBookValues) => {
     dispatch(removeBookFromCart({ id, quantity }));
-    dispatch(removeFromCartCounter());
-    dispatch(subtractProductPrice(price));
   };
 
   return (

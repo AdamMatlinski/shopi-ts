@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectCartOrderSummary } from './orderSummarySlice';
 import { StyledOrderSummaryContainer, StyledTotalPriceBox } from './OrderSummary.styles';
+import { selectCartBookList } from '../../templates/cartView/cartViewSlice';
 
 const OrderSummary = () => {
-  const cartTotalPrice = useSelector(selectCartOrderSummary);
+  const cartBookList = useSelector(selectCartBookList);
+  const [cartTotalPrice, setCartTotalPrice] = useState(0);
+
+  useEffect(() => {
+    let counter = 0;
+
+    cartBookList.forEach((book) => {
+      counter += book.price * book.quantity;
+    });
+
+    setCartTotalPrice(counter);
+  }, [cartBookList]);
 
   return (
     <StyledOrderSummaryContainer>

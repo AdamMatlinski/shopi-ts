@@ -6,13 +6,15 @@ export const BookItemContainer = styled.li`
   margin-bottom: 20px;
   padding: 10px;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-
   &:hover {
     -webkit-box-shadow: 0px 0px 21px 6px rgba(0, 0, 0, 0.25);
     box-shadow: 0px 0px 21px 6px rgba(0, 0, 0, 0.25);
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.md} {
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `;
 
