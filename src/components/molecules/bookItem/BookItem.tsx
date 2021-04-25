@@ -28,7 +28,6 @@ interface ComponentProps extends BookProps {
   genre: string;
   bookStockAmount: number;
   addToCartList: ({ id, image, title, author, price, quantity }: BookProps) => void;
-  addProductPrice: (price: number) => void;
 }
 
 const BookItem = ({
@@ -40,7 +39,6 @@ const BookItem = ({
   price,
   bookStockAmount,
   addToCartList,
-  addProductPrice,
   quantity,
 }: ComponentProps) => {
   const dispatch = useDispatch();
@@ -57,7 +55,6 @@ const BookItem = ({
 
   const handleAddToCart = ({ id, image, title, author, price, quantity }: BookProps) => {
     dispatch(addToCartList({ id, image, title, author, price, quantity }));
-    dispatch(addProductPrice(price));
     handleOpen();
   };
 
