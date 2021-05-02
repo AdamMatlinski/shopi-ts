@@ -1,6 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { RootState } from '../../../app/store';
+
+type AddBookProps = {
+  bookImage: string;
+  bookTitle: string;
+  bookAuthor: string;
+  bookGenre: string;
+  bookPrice: number;
+  bookId: string;
+  bookStockAmount: number;
+  quantity: number;
+};
 
 const bookListSlice = createSlice({
   name: 'bookList',
@@ -47,7 +58,7 @@ const bookListSlice = createSlice({
     },
   ],
   reducers: {
-    addBook: (state, action) => {
+    addBook: (state, { payload }: PayloadAction<AddBookProps>) => {
       const {
         bookImage,
         bookTitle,
@@ -57,7 +68,7 @@ const bookListSlice = createSlice({
         bookId,
         bookStockAmount,
         quantity,
-      } = action.payload;
+      } = payload;
       state.push({
         bookImage,
         bookTitle,
@@ -69,8 +80,8 @@ const bookListSlice = createSlice({
         quantity,
       });
     },
-    removeBook: (state, action) => {
-      return state.filter((book) => book.bookId !== action.payload);
+    removeBook: (state, { payload }: PayloadAction<string>) => {
+      return state.filter((book) => book.bookId !== payload);
     },
   },
 });

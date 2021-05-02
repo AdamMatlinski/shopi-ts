@@ -19,8 +19,8 @@ const cartViewSlice = createSlice({
   name: 'cartBookList',
   initialState,
   reducers: {
-    addToCartList: (state, action: PayloadAction<CartViewActionsProps>) => {
-      const { id, image, title, author, price, quantity } = action.payload;
+    addToCartList: (state, { payload }: PayloadAction<CartViewActionsProps>) => {
+      const { id, image, title, author, price, quantity } = payload;
       const bookIndex = state.findIndex((element: CartViewActionsProps) => element.id == id);
 
       if (!state.some((e) => e.id === id)) {
@@ -29,8 +29,8 @@ const cartViewSlice = createSlice({
         state[bookIndex].quantity += 1;
       }
     },
-    removeBookFromCart: (state, action: PayloadAction<RemoveBookFromCartProps>) => {
-      const { id, quantity } = action.payload;
+    removeBookFromCart: (state, { payload }: PayloadAction<RemoveBookFromCartProps>) => {
+      const { id, quantity } = payload;
       const bookIndex = state.findIndex((e) => e.id == id);
 
       if (quantity > 1) {
